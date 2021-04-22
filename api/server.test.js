@@ -34,20 +34,20 @@ describe("server", ()=>{
             
             await db("dogs").insert(lisa)
             res = await request(server).get("/dogs")
-            expect(res.body).toHaveLength(2)
+            expect(res.body).toHaveLength(2)    //with two new dogs in db, length of dogs array should be 2
         })
         it("returns the right format for dogs", async ()=>{
             await db("dogs").insert(olive)
             await db("dogs").insert(lisa)
             const res = await request(server).get("/dogs")
-            expect(res.body[0]).toMatchObject({id:1, ...olive})
+            expect(res.body[0]).toMatchObject({id:1, ...olive}) //the dogs object should have this object format
             expect(res.body[1]).toMatchObject({id:2, ...lisa})
         })
     })
     describe("[POST] /dogs", ()=>{
         it("responds with newly created dog", async ()=>{
             let res
-            res = await request(server).post("/dogs").send(olive)
+            res = await request(server).post("/dogs").send(olive) // .send will give the req.body of olive to post
             expect(res.body).toMatchObject({id:1, ...olive})
             
             res = await request(server).post("/dogs").send(lisa)

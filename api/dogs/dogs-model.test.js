@@ -28,7 +28,7 @@ describe("dogs model", ()=>{
             let all
             await Dogs.insert(olive)
             all = await db("dogs")
-            expect(all).toHaveLength(1)
+            expect(all).toHaveLength(1) //with new dog in db, length of dogs array should be 1
 
             await Dogs.insert(lisa)
             all = await db("dogs")
@@ -36,7 +36,7 @@ describe("dogs model", ()=>{
         })
         it("values of dogs", async ()=>{
             const dogs = await Dogs.insert(olive)
-            expect(dogs).toMatchObject({id:1, ...olive})
+            expect(dogs).toMatchObject({id:1, ...olive}) //the dogs object should have this object format
         })
     })
     describe("update function", ()=>{
