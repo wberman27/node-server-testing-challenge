@@ -20,12 +20,12 @@ server.get("/dogs", (req, res) => {
 });
 
 server.get("/dogs/:id", (req, res) => {
-  Dogs.getById(id)
+  Dogs.getById(req.params.id)
   .then(dog =>{
     res.status(200).json(dog)
   })
   .catch(err =>{
-    res.status(404).json(`Could not find dog with id ${id}`)
+    res.status(404).json(`Could not find dog with id ${req.params.id}`)
   })
 });
 
@@ -40,19 +40,22 @@ server.post("/dogs", (req, res) => {
 });
 
 server.delete("/dogs/:id", (req, res) => {
-  Dogs.remove(id)
+  Dogs.remove(req.params.id)
   .then(dog =>{
-    res.status(201).json(`Dog with id ${id} removed.`)
+    res.status(201).json(`Dog with id ${req.params.id} removed.`)
   })
   .catch(err =>{
-    res.status(404).json(`Dog not found with id:${id}.`)
+    res.status(404).json(`Dog not found with id:${req.params.id}.`)
   })
 });
 
 server.put("/dogs/:id", (req, res) => {
-  Dogs.update(id, req.body)
+  Dogs.update(req.params.id, req.body) //would return 1, for one updated dog successful
+  .then(() =>{
+    return Dogs.getById(req.params.id) //can do in dogs-model instead
+  })
   .then(updatedDog =>{
-    res.status(201).json(updatedDog)
+    res.status(201).json(updatedDog[0]) //return the updated dog object
   })
   .catch(err =>{
     res.status(500).json(err)
