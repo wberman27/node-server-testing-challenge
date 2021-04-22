@@ -1,8 +1,8 @@
 exports.up = function (knex) {
 //create table
     return knex.schema.createTable("dogs", tbl => {
-      tbl.increments();
-      tbl.string("name", 128).unique().notNullable();
+      tbl.increments(); //auto-incrementing primary key
+      tbl.string("name", 128).unique().notNullable(); //required and must be unique name
     });
 };
   

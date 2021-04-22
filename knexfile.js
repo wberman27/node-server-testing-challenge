@@ -8,6 +8,7 @@ module.exports = {
         filename: './data/dogs.db3',
       },
     },
+    //testing environment used so that we don't make changes to our dev db
     testing: {
       client: 'sqlite3',
       useNullAsDefault: true,
